@@ -59,7 +59,7 @@ fs.appendFile(log_filename, msgtext, encoding='utf8', function (err) {
 });
 
 if(type=='ERROR')
-    mailer.sendMail("Error Occured(API Site).",msgtext,"harun@nordicsoft.com.bd");
+    mailer.sendMail("Error Occured(API iSite).",msgtext,"harun@nordicsoft.com.bd");
 
 }
 function logOnly(msg,type){
@@ -97,7 +97,7 @@ fs.appendFile(log_filename, msgtext, encoding='utf8', function (err) {
 });
 
 if(type=='ERROR')
-    mailer.sendMail("Error Occured(API Site).",msgtext,"harun@nordicsoft.com.bd");
+    mailer.sendMail("Error Occured(API iSite).",msgtext,"harun@nordicsoft.com.bd");
 
 }
 exports.Nullify=Nullify;
