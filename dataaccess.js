@@ -1,6 +1,10 @@
 //var config=require('./config.js');
 var utility=require('./utility.js');
 
+function unSuccessJson(error){
+  var msg={"Status":"Unsuccess","Error":error};
+  return JSON.stringify(msg);
+}
 function getInvitations(response,connection,userID,id){
 
   if( userID == null ) userID = 'mmnitol@outlook.com';
@@ -22,7 +26,7 @@ function getInvitations(response,connection,userID,id){
           {
             utility.log("Invitations find error: " + error,'ERROR');
             response.setHeader("content-type", "text/plain");
-            response.write('{\"Status\":\"Unsuccess\"}');
+            response.write(unSuccessJson(error));
             response.end();
             
           }
@@ -64,7 +68,7 @@ function getInvitations_back(response,connection,userID,id){
       {
         utility.log("Invitees find error: " + error,'ERROR');
         response.setHeader("content-type", "text/plain");
-        response.write('{\"Status\":\"Unsuccess\"}');
+        response.write(unSuccessJson(error));
         response.end();
         
       }
@@ -84,7 +88,7 @@ function getInvitations_back(response,connection,userID,id){
           {
             utility.log("Invitations find error: " + error,'ERROR');
             response.setHeader("content-type", "text/plain");
-            response.write('{\"Status\":\"Unsuccess\"}');
+            response.write(unSuccessJson(error));
             response.end();
             
           }
