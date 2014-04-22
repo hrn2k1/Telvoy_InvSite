@@ -1,10 +1,31 @@
 //var config=require('./config.js');
 var utility=require('./utility.js');
 
-function unSuccessJson(error){
-  var msg={"Status":"Unsuccess","Error":error};
-  return JSON.stringify(msg);
+
+
+function CreateGeneralResponse(Status,StatusCode,ErrorCode,ErrorMsg,SecCode,DataObj)
+{
+  var Obj={
+  "status": Status,
+  "status_code":StatusCode,
+  "error_code":ErrorCode,
+  "error_message":ErrorMsg,
+  "security_code":SecCode,
+  "data":DataObj
+  };
+  return JSON.stringify(Obj);
 }
+
+function unSuccessJson(error){
+  // var msg={"Status":"Unsuccess","Error":error};
+  // return JSON.stringify(msg);
+
+  return CreateGeneralResponse(false,'100','500',error,'',[]);
+}
+function SuccessJsonWithObjects(DataObjs){
+  return CreateGeneralResponse(true,'200','','','',DataObjs);
+}
+
 function getInvitations(response,connection,userID,id){
 
   if( userID == null ) userID = 'mmnitol@outlook.com';
@@ -13,8 +34,8 @@ function getInvitations(response,connection,userID,id){
  if(connection==null) {
       utility.log('database connection is null','ERROR');
       response.setHeader("content-type", "text/plain");
-      //response.write('{\"Status\":\"Unsuccess\"}');
-      response.write('{\"invitations\":[]}');
+      //response.write('{\"invitations\":[]}');
+      response.write(SuccessJsonWithObjects([]));
       response.end();
       return;
   }
@@ -34,7 +55,8 @@ function getInvitations(response,connection,userID,id){
           {
             utility.log(result);
             response.setHeader("content-type", "text/plain");
-            response.write("{\"invitations\":"+JSON.stringify(result)+"}");
+            //response.write("{\"invitations\":"+JSON.stringify(result)+"}");
+            response.write(SuccessJsonWithObjects(result));
             response.end();
             
           }
